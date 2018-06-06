@@ -50,6 +50,8 @@
 
 #include <sel4platsupport/io.h>
 
+#include <sel4/sel4.h>
+
 /* ammount of untyped memory to reserve for the driver (32mb) */
 #define DRIVER_UNTYPED_MEMORY (1 << 25)
 /* Number of untypeds to try and use to allocate the driver memory.
@@ -112,7 +114,7 @@ init_env(driver_env_t env)
                                      ALLOCATOR_VIRTUAL_POOL_SIZE, simple_get_pd(&env->simple));
 
 
-    error = sel4platsupport_new_io_mapper(env->vspace, env->vka, &env->ops.io_mapper);
+    error = sel4platsupport_new_io_mapper(&env->vspace, &env->vka, &env->ops.io_mapper);
     ZF_LOGF_IF(error, "Failed to initialise IO mapper");
 
     error = sel4platsupport_new_malloc_ops(&env->ops.malloc_ops);
@@ -407,7 +409,6 @@ void sel4test_run_tests(struct driver_env* e)
 
 void *main_continued(void *arg UNUSED)
 {
-
     /* elf region data */
     int num_elf_regions;
     sel4utils_elf_region_t elf_regions[MAX_REGIONS];
