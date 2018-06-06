@@ -46,6 +46,8 @@ menu "seL4 Libraries"
     source "libs/libutils/Kconfig"
     source "libs/libplatsupport/Kconfig"
     source "libs/libsel4debug/Kconfig"
+    source "libs/libethdrivers/Kconfig"
+    source "libs/liblwip/Kconfig"
     source "libs/libsel4sync/Kconfig"
 endmenu
 
